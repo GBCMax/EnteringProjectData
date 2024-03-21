@@ -1,55 +1,49 @@
 ﻿@{
     ViewBag.Title = "Index";
     //Layout = "~/Views/Shared/Layout.cshtml";
-    Person tom = new Person("Tom", 37);
-    Project project1 = new Project
-    {
-        ProjectName = "Project1",
-        CustomerCompanyName = "Customer1",
-        ExecutingCompanyName = "Executor1",
-        StartDate = DateTime.Now.Date,
-        EndDate = DateTime.Now.Date.AddDays(31),
-        Priority = 1
-    };
-    Employee employee1 = new Employee
-    {
-        FirstName = "Максим",
-        SecondName = "Елисеев",
-        Patronymic = "Викторович",
-        Email = "maks_on_max@mail.ru"
-    };
-    Employee employee2 = new Employee
-    {
-        FirstName = "Артем",
-        SecondName = "Дзюба",
-        Patronymic = "Хуй знает",
-        Email = "почта артема дзюбы"
-    };
-    project1.AddEmployee(employee1);
-    project1.AddEmployee(employee2);
-    employee1.AddInProject(project1);
-    employee2.AddInProject(project1);
 }
-<h3>Index Content</h3>
+@using EnteringProjectData.ViewModels
+@model IndexViewModel
 
-<h3>Project Data</h3>
-<h3>ProjectName: @project1.ProjectName</h3>
-<h3>Customer: @project1.CustomerCompanyName</h3>
-<h3>Executor: @project1.ExecutingCompanyName</h3>
-<h3>StartDate: @project1.StartDate.ToShortDateString()</h3>
-<h3>EndDate: @project1.EndDate.ToShortDateString()</h3>
-<h3>Priority: @project1.Priority</h3>
+<h3>Index Content</h3>
+<form>
+    <label>Выберите проект:</label>
+    <select name="projectID">
+        @foreach (Project comp in Model.Projects)
+        {
+            <option value="@comp.ProjectId">@comp.ProjectName</option>
+        }
+    </select>
+    <input type="submit" />
+</form>
+<br />
+<h3>Projects Data:</h3>
+<table class="table">
+    <tr><td>ProjectName</td><td>Customer</td><td>Executor</td><td>StartDate</td><td>EndDate</td><td>Priority</td></tr>
+@foreach (var emp in Model.Projects)
+{
+    <tr>
+        <td>@emp.ProjectName</td>
+        <td>@emp.CustomerCompanyName</td>
+        <td>@emp.ExecutingCompanyName</td>
+        <td>@emp.StartDate.ToShortDateString()</td>
+        <td>@emp.EndDate.ToShortDateString()</td>
+        <td>@emp.Priority</td>
+    </tr>
+}
+</table>
 <h3>Eployees:</h3>
-<ul>
-    @foreach (var s in project1.Employees)
+<table class="table">
+    <tr><td>Фамилия</td><td>Имя</td><td>Отчество</td></tr>
+    @foreach (var emp in Model.Employees)
     {
-        <li>@string.Format(s.SecondName + " " + s.FirstName + " " + s.Patronymic)</li>
+        <tr><td>@emp.SecondName</td><td>@emp.FirstName</td><td>@emp.Patronymic</td></tr>
     }
-</ul>
+</table>
 @{
     await Html.RenderPartialAsync("Hello", new List<string> { "Hello", "Привет", "Hallo", "Salut" });
 }
 
 @section Footer {
-       Copyright© Metanit.com, @DateTime.Now.Year. All rights reserved
+       Copyright© Eliseev Maksim, @DateTime.Now.Year. All rights reserved
 }

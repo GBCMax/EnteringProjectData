@@ -2,7 +2,8 @@
 {
     public class Project
     {
-        public Guid ProjectId { get; set; }
+        //public Guid ProjectId { get; set; }
+        public int ProjectId { get; set; }
         public string ProjectName { get; set; }
         public string CustomerCompanyName {  get; set; }
         public string ExecutingCompanyName { get; set; }
@@ -10,9 +11,10 @@
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set;}
         public int Priority { get; set; }
-        public Project() 
+        public Project(int projectID) 
         { 
-            ProjectId = Guid.NewGuid();
+            ProjectId = projectID;
+            //ProjectId = Guid.NewGuid();
             Employees = new List<Employee>();
         }
         public bool AddEmployee(Employee employee)

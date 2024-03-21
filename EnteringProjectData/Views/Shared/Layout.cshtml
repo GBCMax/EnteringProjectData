@@ -1,8 +1,29 @@
 ﻿<!DOCTYPE html>
+<style>
+    #footer {
+        position: fixed;
+        left: 0px;
+        bottom: 0px;
+        height: 30px;
+        width: 100%;
+    }
+
+    td {
+        padding: 5px;
+    }
+
+    tr:nth-child(even) {
+        background: #CCC
+    }
+
+    tr:nth-child(odd) {
+        background: #FFF
+    }
+</style>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>METANIT.COM | @ViewBag.Title</title>
+    <title>Entering project data | @ViewBag.Title</title>
 </head>
 <body>
     <h2>@ViewBag.Title</h2>
@@ -10,6 +31,6 @@
     <div>
         @RenderBody()
     </div>
-    <footer>@RenderSection("Footer", false)</footer>
+    <footer id="footer">@RenderSection("Footer", false)</footer>
 </body>
 </html>

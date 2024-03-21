@@ -2,15 +2,17 @@
 {
     public class Employee
     {
-        public Guid EmployeeId { get; set; }
+        //public Guid EmployeeId { get; set; }
+        public int EmployeeID { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }
         public string Patronymic { get; set; }
         public string Email { get; set; }
         public List<Project> Projects { get; set; }
-        public Employee()
+        public Employee(int employeeID)
         {
-            EmployeeId = Guid.NewGuid ();
+            //EmployeeId = Guid.NewGuid();
+            EmployeeID = employeeID;
             Projects = new List<Project> ();
         }
 
