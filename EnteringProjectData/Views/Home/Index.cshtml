@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "Index";
+    //Layout = "~/Views/Shared/Layout.cshtml";
+    Person tom = new Person("Tom", 37);
+    Project project1 = new Project
+    {
+        ProjectName = "Project1",
+        CustomerCompanyName = "Customer1",
+        ExecutingCompanyName = "Executor1",
+        StartDate = DateTime.Now.Date,
+        EndDate = DateTime.Now.Date.AddDays(31),
+        Priority = 1
+    };
+    Employee employee1 = new Employee
+    {
+        FirstName = "Максим",
+        SecondName = "Елисеев",
+        Patronymic = "Викторович",
+        Email = "maks_on_max@mail.ru"
+    };
+    Employee employee2 = new Employee
+    {
+        FirstName = "Артем",
+        SecondName = "Дзюба",
+        Patronymic = "Хуй знает",
+        Email = "почта артема дзюбы"
+    };
+    project1.AddEmployee(employee1);
+    project1.AddEmployee(employee2);
+    employee1.AddInProject(project1);
+    employee2.AddInProject(project1);
+}
+<h3>Index Content</h3>
+
+<h3>Project Data</h3>
+<h3>ProjectName: @project1.ProjectName</h3>
+<h3>Customer: @project1.CustomerCompanyName</h3>
+<h3>Executor: @project1.ExecutingCompanyName</h3>
+<h3>StartDate: @project1.StartDate.ToShortDateString()</h3>
+<h3>EndDate: @project1.EndDate.ToShortDateString()</h3>
+<h3>Priority: @project1.Priority</h3>
+<h3>Eployees:</h3>
+<ul>
+    @foreach (var s in project1.Employees)
+    {
+        <li>@string.Format(s.SecondName + " " + s.FirstName + " " + s.Patronymic)</li>
+    }
+</ul>
+@{
+    await Html.RenderPartialAsync("Hello", new List<string> { "Hello", "Привет", "Hallo", "Salut" });
+}
+
+@section Footer {
+       Copyright© Metanit.com, @DateTime.Now.Year. All rights reserved
+}
