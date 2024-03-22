@@ -10,7 +10,7 @@ namespace EnteringProjectData.Controllers
 	{
 		private readonly ILogger<HomeController> _logger;
         List<Project> _projects;
-        List<Employee> _employees;
+        public List<Employee> _employees;
 
 		public HomeController(ILogger<HomeController> logger)
 		{
@@ -67,9 +67,20 @@ namespace EnteringProjectData.Controllers
             }
             return View(viewModel);
         }
-        public IActionResult About()
+
+        public IActionResult Create()
         {
-            return View();
+            IndexViewModel viewModel = new() { Projects = _projects, Employees = _employees };
+            //List<Employee> emps = _employees;
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Create(Project project)
+        {
+            project.ProjectId = Convert.ToInt32(Guid.NewGuid());
+            _projects.Add(project);
+            return RedirectToAction("Index");
         }
         public IActionResult Hello()
         {

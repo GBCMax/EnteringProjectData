@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Create project";
+    //Layout = "~/Views/Shared/Layout.cshtml";
+}
+@inject ITimeService timeService
+@using EnteringProjectData.ViewModels
+@model IndexViewModel
+<h2>Current Time: @timeService.Time</h2>
+<h3>Create Content</h3>
+<form method="post">
+    <p>
+        <label>Project name</label><br/>
+        <input type="text" name="ProjectName"/>
+    </p>
+    <p>
+        <label>CustomerCompanyName</label><br/>
+        <input type="text" name="CustomerCompanyName"/>
+    </p>
+    <p>
+        <label>ExecutingCompanyName</label><br/>
+        <input type="text" name="ExecutingCompanyName"/>
+    </p>
+    <p>
+        <label>Employees</label><br/>
+        <select multiple="multiple" name="Employees">
+        @foreach(var emp in Model.Employees)
+        {
+            <option selected value="@emp.EmployeeID">@string.Format("FirstName: {0}, SecondName: {1}", emp.FirstName, emp.SecondName)</option>
+        }
+        </select>
+    </p>
+    <p>
+        <label>StartDate</label><br />
+        <input type="date" name="StartDate"/>
+    </p>
+    <p>
+        <label>EndDate</label><br />
+        <input type="date" name="EndDate"/>
+    </p>
+    <p>
+        <label>Priority</label><br />
+        <input type="number" name="Priority"/>
+    </p>
+    <p>
+        <input type="submit" value="Send"/>
+    </p>
+</form>
