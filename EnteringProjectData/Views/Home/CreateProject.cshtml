@@ -1,18 +1,17 @@
 ﻿@{
     ViewBag.Title = "Create project";
 }
-@using EnteringProjectData.Data.Models
-@model Project
+@model EnteringProjectData.Data.Models.Project
 <div class="row">
-    <h3>Create Content</h3>
-    <form asp-action="Create" method="post" class="form-horizontal">
+    <h3>Create project</h3>
+    <form asp-action="CreateProject" method="post" class="form-horizontal">
         <div class="form-group">
             <label asp-for="ProjectName">ProjectName</label>
             <div class="col-md-5">
                 <input asp-for="ProjectName" class="form-control-color"/>
                 <span asp-validation-for="ProjectName" class="text-danger"></span>
             </div>
-            </div>
+        </div>
         <div class="form-group">
             <label asp-for="CustomerCompanyName">CustomerCompanyName</label>
             <div class="col-md-5">

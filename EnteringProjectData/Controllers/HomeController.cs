@@ -23,24 +23,24 @@ namespace EnteringProjectData.Controllers
             //FillDB();
         }
 
-        public IActionResult Index()
+        public IActionResult Main()
         {
             return View(_projectRepository);
         }
 
-        public IActionResult Create()
+        public IActionResult CreateProject()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Create([FromForm] Project project)
+        public IActionResult CreateProject([FromForm] Project project)
         {
             project.Employees = new List<Employee>();
             if (ModelState.IsValid)
             {
                 _projectRepository.AddProject(project);
-                return RedirectToAction("Index");
+                return RedirectToAction("Main");
             }
             return View(project);
         }
@@ -49,9 +49,22 @@ namespace EnteringProjectData.Controllers
         {
             return View();
         }
-        public IActionResult Hello()
+
+        public IActionResult CreateEmployee()
         {
-            return View(_employeeRepository);
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateEmployee([FromForm] Employee employee)
+        {
+            employee.Projects = new List<Project>();
+            if(ModelState.IsValid)
+            {
+                _employeeRepository.AddEmployee(employee);
+                return RedirectToAction("Main");
+            }
+            return View(employee);
         }
 
         public IActionResult Privacy()

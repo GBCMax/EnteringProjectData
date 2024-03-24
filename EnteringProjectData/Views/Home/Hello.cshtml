@@ -1,9 +1,0 @@
-﻿@model EnteringProjectData.Data.Repository.EmployeeRepository
-<h3>Eployees:</h3>
-<table class="table">
-    <tr><td>Фамилия</td><td>Имя</td><td>Отчество</td></tr>
-    @foreach (var emp in Model.Employees)
-    {
-        <tr><td>@emp.SecondName</td><td>@emp.FirstName</td><td>@emp.Patronymic</td></tr>
-    }
-</table>
