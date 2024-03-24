@@ -2,14 +2,13 @@
     ViewBag.Title = "Index";
     //Layout = "~/Views/Shared/Layout.cshtml";
 }
-@using EnteringProjectData.ViewModels
-@model IndexViewModel
-
+@using EnteringProjectData.Data.Repository
+@model ProjectRepository
 <h3>Index Content</h3>
 <form>
     <label>Выберите проект:</label>
     <select name="projectID">
-        @foreach (Project comp in Model.Projects)
+        @foreach (EnteringProjectData.Data.Models.Project comp in Model.Projects)
         {
             <option value="@comp.ProjectId">@comp.ProjectName</option>
         }
@@ -32,18 +31,6 @@
     </tr>
 }
 </table>
-<h3>Eployees:</h3>
-<table class="table">
-    <tr><td>Фамилия</td><td>Имя</td><td>Отчество</td></tr>
-    @foreach (var emp in Model.Employees)
-    {
-        <tr><td>@emp.SecondName</td><td>@emp.FirstName</td><td>@emp.Patronymic</td></tr>
-    }
-</table>
-@{
-    await Html.RenderPartialAsync("Hello", new List<string> { "Hello", "Привет", "Hallo", "Salut" });
-}
-
 @section Footer {
        Copyright© Eliseev Maksim, @DateTime.Now.Year. All rights reserved
 }

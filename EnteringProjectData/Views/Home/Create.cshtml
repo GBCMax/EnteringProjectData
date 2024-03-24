@@ -1,47 +1,53 @@
 ﻿@{
     ViewBag.Title = "Create project";
-    //Layout = "~/Views/Shared/Layout.cshtml";
 }
-@inject ITimeService timeService
-@using EnteringProjectData.ViewModels
-@model IndexViewModel
-<h2>Current Time: @timeService.Time</h2>
-<h3>Create Content</h3>
-<form method="post">
-    <p>
-        <label>Project name</label><br/>
-        <input type="text" name="ProjectName"/>
-    </p>
-    <p>
-        <label>CustomerCompanyName</label><br/>
-        <input type="text" name="CustomerCompanyName"/>
-    </p>
-    <p>
-        <label>ExecutingCompanyName</label><br/>
-        <input type="text" name="ExecutingCompanyName"/>
-    </p>
-    <p>
-        <label>Employees</label><br/>
-        <select multiple="multiple" name="Employees">
-        @foreach(var emp in Model.Employees)
-        {
-            <option selected value="@emp.EmployeeID">@string.Format("FirstName: {0}, SecondName: {1}", emp.FirstName, emp.SecondName)</option>
-        }
-        </select>
-    </p>
-    <p>
-        <label>StartDate</label><br />
-        <input type="date" name="StartDate"/>
-    </p>
-    <p>
-        <label>EndDate</label><br />
-        <input type="date" name="EndDate"/>
-    </p>
-    <p>
-        <label>Priority</label><br />
-        <input type="number" name="Priority"/>
-    </p>
-    <p>
-        <input type="submit" value="Send"/>
-    </p>
-</form>
+@using EnteringProjectData.Data.Models
+@model Project
+<div class="row">
+    <h3>Create Content</h3>
+    <form asp-action="Create" method="post" class="form-horizontal">
+        <div class="form-group">
+            <label asp-for="ProjectName">ProjectName</label>
+            <div class="col-md-5">
+                <input asp-for="ProjectName" class="form-control-color"/>
+                <span asp-validation-for="ProjectName" class="text-danger"></span>
+            </div>
+            </div>
+        <div class="form-group">
+            <label asp-for="CustomerCompanyName">CustomerCompanyName</label>
+            <div class="col-md-5">
+                <input asp-for="CustomerCompanyName" class="form-control-color" />
+                <span asp-validation-for="CustomerCompanyName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ExecutingCompanyName">ExecutingCompanyName</label>
+            <div class="col-md-5">
+                <input asp-for="ExecutingCompanyName" class="form-control-color" />
+                <span asp-validation-for="ExecutingCompanyName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="StartDate">StartDate</label>
+            <div class="col-md-5">
+                <input asp-for="StartDate" type="date" class="form-control-color" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="EndDate">EndDate</label>
+            <div class="col-md-5">
+                <input asp-for="EndDate" type="date" class="form-control-color" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Priority">Priority</label>
+            <div class="col-md-5">
+                <input asp-for="Priority" class="form-control-color" />
+                <span asp-validation-for="Priority" class="text-danger"></span>
+            </div>
+        </div>
+        <input class="btn btn-danger" type="submit" value="Create project"/>
+    </form>
+</div>

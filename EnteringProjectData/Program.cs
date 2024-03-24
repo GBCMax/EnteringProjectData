@@ -1,9 +1,17 @@
+using EnteringProjectData.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddTransient<ITimeService, SimpleTimeService>();
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<DBContext>(options =>
+    options.UseSqlServer(connectionString));
 
 var app = builder.Build();
 
