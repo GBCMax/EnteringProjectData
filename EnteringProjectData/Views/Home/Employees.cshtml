@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Employees";
+}
+@using EnteringProjectData.Data.Repository
+@model EmployeeRepository
+<h3>Employees</h3>
+<h3>Projects Data:</h3>
+<table class="table">
+    <tr><td>FirstName</td><td>SecondName</td><td>Patronymic</td><td>Email</td><td>Projects</td></tr>
+    @foreach (var emp in Model.Employees)
+    {
+        <tr>
+            <td>@emp.FirstName</td>
+            <td>@emp.SecondName</td>
+            <td>@emp.Patronymic</td>
+            <td>@emp.Email</td>
+            <td>
+                @if (emp.Projects != null)
+                    @foreach (var p in emp.Projects)
+                    {
+                        @p.ProjectName
+                    }
+            </td>
+        </tr>
+    }
+</table>
+@section Footer {
+           Copyright© Eliseev Maksim, @DateTime.Now.Year. All rights reserved
+}

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography;
 
 namespace EnteringProjectData.Controllers
 {
@@ -28,6 +29,10 @@ namespace EnteringProjectData.Controllers
             return View(_projectRepository);
         }
 
+        public IActionResult Employees()
+        {
+            return View(_employeeRepository);
+        }
         public IActionResult CreateProject()
         {
             return View();
@@ -43,11 +48,6 @@ namespace EnteringProjectData.Controllers
                 return RedirectToAction("Main");
             }
             return View(project);
-        }
-        [HttpGet]
-        public IActionResult Complete()
-        {
-            return View();
         }
 
         public IActionResult CreateEmployee()

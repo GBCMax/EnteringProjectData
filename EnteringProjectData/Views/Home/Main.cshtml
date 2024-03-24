@@ -1,10 +1,10 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Main";
     //Layout = "~/Views/Shared/Layout.cshtml";
 }
 @using EnteringProjectData.Data.Repository
 @model ProjectRepository
-<h3>Index Content</h3>
+<h3>Main</h3>
 <form>
     <label>Выберите проект:</label>
     <select name="projectID">
@@ -13,21 +13,26 @@
             <option value="@comp.ProjectId">@comp.ProjectName</option>
         }
     </select>
-    <input type="submit" />
+    <input class="btn btn-danger" type="submit" value="Info"/>
 </form>
-<br />
+<br/>
 <h3>Projects Data:</h3>
 <table class="table">
-    <tr><td>ProjectName</td><td>Customer</td><td>Executor</td><td>StartDate</td><td>EndDate</td><td>Priority</td></tr>
-@foreach (var emp in Model.Projects)
+    <tr><td>ProjectName</td><td>Customer</td><td>Executor</td><td>StartDate</td><td>EndDate</td><td>Priority</td><td>Employees</td></tr>
+@foreach (var p in Model.Projects)
 {
     <tr>
-        <td>@emp.ProjectName</td>
-        <td>@emp.CustomerCompanyName</td>
-        <td>@emp.ExecutingCompanyName</td>
-        <td>@emp.StartDate.ToShortDateString()</td>
-        <td>@emp.EndDate.ToShortDateString()</td>
-        <td>@emp.Priority</td>
+        <td>@p.ProjectName</td>
+        <td>@p.CustomerCompanyName</td>
+        <td>@p.ExecutingCompanyName</td>
+        <td>@p.StartDate.ToShortDateString()</td>
+        <td>@p.EndDate.ToShortDateString()</td>
+        <td>@p.Priority</td>
+            <td>
+                @if(p.Employees != null)
+                @foreach (var employee in p.Employees)
+                {@employee.FirstName @employee.SecondName}
+            </td>
     </tr>
 }
 </table>
