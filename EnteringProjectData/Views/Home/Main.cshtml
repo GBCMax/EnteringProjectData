@@ -4,7 +4,6 @@
 }
 @using EnteringProjectData.Data.Repository
 @model ProjectRepository
-<h3>Main</h3>
 <form>
     <label>Выберите проект:</label>
     <select name="projectID">
@@ -13,7 +12,7 @@
             <option value="@comp.ProjectId">@comp.ProjectName</option>
         }
     </select>
-    <input class="btn btn-danger" type="submit" value="Info"/>
+    <input class="btn btn-danger" type="submit" value="Change"/>
 </form>
 <br/>
 <h3>Projects Data:</h3>

@@ -15,7 +15,7 @@ namespace EnteringProjectData.Data.Repository
         public void AddProject(Project project)
         {
             _dbContext.Project.Add(project);
-            _dbContext.SaveChanges();
+            _dbContext.SaveChangesAsync();
         }
         public string AddEmployeeInProject(Project project, Employee employee)
         {
@@ -24,7 +24,7 @@ namespace EnteringProjectData.Data.Repository
             {
                 p.Employees.Add(employee);
                 _dbContext.Project.Update(p);
-                _dbContext.SaveChanges();
+                _dbContext.SaveChangesAsync();
                 return "Добавлен";
             }
             return "Ошибка! Проект не найден!";

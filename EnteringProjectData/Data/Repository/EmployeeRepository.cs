@@ -14,7 +14,7 @@ namespace EnteringProjectData.Data.Repository
         public void AddEmployee(Employee employee)
         {
             _dbContext.Employee.Add(employee);
-            _dbContext.SaveChanges();
+            _dbContext.SaveChangesAsync();
         }
         public string AddEmployeeInProject(Project project, Employee employee)
         {
@@ -23,7 +23,7 @@ namespace EnteringProjectData.Data.Repository
             {
                 emp.Projects.Add(project);
                 _dbContext.Employee.Update(emp);
-                _dbContext.SaveChanges();
+                _dbContext.SaveChangesAsync();
                 return "Добавлен";
             }
             return "Ошибка! Рабочий не найден!";

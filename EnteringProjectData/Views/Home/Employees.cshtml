@@ -3,8 +3,6 @@
 }
 @using EnteringProjectData.Data.Repository
 @model EmployeeRepository
-<h3>Employees</h3>
-<h3>Projects Data:</h3>
 <table class="table">
     <tr><td>FirstName</td><td>SecondName</td><td>Patronymic</td><td>Email</td><td>Projects</td></tr>
     @foreach (var emp in Model.Employees)

@@ -3,6 +3,7 @@ using EnteringProjectData.Data.Models;
 using EnteringProjectData.Data.Repository;
 using EnteringProjectData.Data.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Linq;
@@ -24,10 +25,31 @@ namespace EnteringProjectData.Controllers
             //FillDB();
         }
 
-        public IActionResult Main()
+        public IActionResult Main(int? projectID)
         {
+            if(projectID != null)
+            {
+                Project? project = _dbContext.Project.FirstOrDefault(p => p.ProjectId == projectID);
+                if(project != null)
+                {
+                    return RedirectToAction("ChangeProject", project);
+                }
+            }
+
             return View(_projectRepository);
         }
+
+        public IActionResult ChangeProject(Project project)
+        {
+            return View(project);
+        }
+
+        //[HttpPut]
+        //public IActionResult ChangeProject(int projectID)
+        //{
+        //    Project? project = _dbContext.Project.FirstOrDefault(p => p.ProjectId == projectID);
+        //    return View(project);
+        //}
 
         public IActionResult Employees()
         {
@@ -41,7 +63,7 @@ namespace EnteringProjectData.Controllers
         [HttpPost]
         public IActionResult CreateProject([FromForm] Project project)
         {
-            project.Employees = new List<Employee>();
+            //project.Employees = new List<Employee>();
             if (ModelState.IsValid)
             {
                 _projectRepository.AddProject(project);
@@ -58,7 +80,7 @@ namespace EnteringProjectData.Controllers
         [HttpPost]
         public IActionResult CreateEmployee([FromForm] Employee employee)
         {
-            employee.Projects = new List<Project>();
+            //employee.Projects = new List<Project>();
             if(ModelState.IsValid)
             {
                 _employeeRepository.AddEmployee(employee);
@@ -72,11 +94,6 @@ namespace EnteringProjectData.Controllers
 			return View();
 		}
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-		public IActionResult Error()
-		{
-			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-		}
         //private void FillDB()
         //{
         //    Project project1 = new Project

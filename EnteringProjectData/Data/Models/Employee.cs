@@ -9,10 +9,14 @@ namespace EnteringProjectData.Data.Models
         public string SecondName { get; set; }
         public string Patronymic { get; set; }
         public string Email { get; set; }
-        public virtual List<Project>? Projects { get; set; }
+        public virtual List<Project> Projects { get; set; }
         public void AddEmpInProject(Project project)
         {
             Projects.Add(project);
+        }
+        public Employee() 
+        { 
+            Projects = new List<Project>();
         }
     }
 }
