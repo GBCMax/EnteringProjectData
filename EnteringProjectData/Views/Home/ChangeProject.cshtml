@@ -46,21 +46,21 @@
                 <span asp-validation-for="Priority" class="text-danger"></span>
             </div>
         </div>
-        @* <label asp-for="Employees">Employees</label>
-        <table class="table">
-        <tr><td>Фамилия</td><td>Имя</td><td>Отчество</td></tr>
-        @foreach (var emp in Model.Employees)
-        {
-        <tr><td>@emp.SecondName</td><td>@emp.FirstName</td><td>@emp.Patronymic</td></tr>
-        }
-        </table>
-        <div class="form-group">
-            <label asp-for="Employees">Employees</label>
-            <div class="col-md-5">
-                <input asp-for="Priority" class="form-control-color" />
-                <span asp-validation-for="Priority" class="text-danger"></span>
-            </div>
-        </div> *@
-        @* <input class="btn btn-danger" type="submit" value="Create project" /> *@
+        <form>
+            <label>Сотрудники:</label>
+            <select name="employeeID">
+                @if (Model.Employees.Count > 0)
+                @foreach (var comp in Model.Employees)
+                {
+                        <option value="@comp.EmployeeID">@comp.Email</option>
+                }
+                else
+                {
+                    <option>Нет сотрудников</option>
+                }
+            </select>
+            @* <input class="btn btn-danger" type="submit" value="Delete" /> *@
+            @* <input asp-for="@Model.Employees" class="btn btn-danger" type="submit" value="Add" asp-action="AddEmployeeInProject" asp-route-id="@Model.ProjectId"/> *@
+        </form>
     </form>
 </div>

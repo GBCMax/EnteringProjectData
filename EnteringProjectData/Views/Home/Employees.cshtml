@@ -3,6 +3,16 @@
 }
 @using EnteringProjectData.Data.Repository
 @model EmployeeRepository
+<form>
+    <label>Выберите сотрудника:</label>
+    <select name="employeeID">
+        @foreach (var comp in Model.Employees)
+        {
+            <option value="@comp.EmployeeID">@comp.Email</option>
+        }
+    </select>
+    <input class="btn btn-danger" type="submit" value="Change" />
+</form>
 <table class="table">
     <tr><td>FirstName</td><td>SecondName</td><td>Patronymic</td><td>Email</td><td>Projects</td></tr>
     @foreach (var emp in Model.Employees)
@@ -13,7 +23,7 @@
             <td>@emp.Patronymic</td>
             <td>@emp.Email</td>
             <td>
-                @if (emp.Projects != null)
+                @if (emp.Projects.Count > 0)
                     @foreach (var p in emp.Projects)
                     {
                         @p.ProjectName

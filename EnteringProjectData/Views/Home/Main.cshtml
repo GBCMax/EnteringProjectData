@@ -7,7 +7,7 @@
 <form>
     <label>Выберите проект:</label>
     <select name="projectID">
-        @foreach (EnteringProjectData.Data.Models.Project comp in Model.Projects)
+        @foreach (var comp in Model.Projects)
         {
             <option value="@comp.ProjectId">@comp.ProjectName</option>
         }
@@ -27,11 +27,11 @@
         <td>@p.StartDate.ToShortDateString()</td>
         <td>@p.EndDate.ToShortDateString()</td>
         <td>@p.Priority</td>
-            <td>
-                @if(p.Employees != null)
-                @foreach (var employee in p.Employees)
-                {@employee.FirstName @employee.SecondName}
-            </td>
+        <td>
+            @if(p.Employees.Count > 0)
+            @foreach (var employee in p.Employees)
+            {@employee.FirstName @employee.SecondName}
+        </td>
     </tr>
 }
 </table>
