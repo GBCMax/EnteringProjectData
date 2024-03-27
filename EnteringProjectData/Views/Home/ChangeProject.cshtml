@@ -48,17 +48,15 @@
         </div>
         <form>
             <label>Сотрудники:</label>
-            <select name="employeeID">
-                @if (Model.Employees.Count > 0)
-                @foreach (var comp in Model.Employees)
-                {
-                        <option value="@comp.EmployeeID">@comp.Email</option>
-                }
-                else
-                {
-                    <option>Нет сотрудников</option>
-                }
-            </select>
+            @if (Model.EmployeeProjects != null)
+            @foreach (var comp in Model.EmployeeProjects)
+            {
+                <label value="@comp.Employee.EmployeeID">@comp.Employee.Email</label>
+            }
+            else
+            {
+                <label>Нет сотрудников</label>
+            }
             @* <input class="btn btn-danger" type="submit" value="Delete" /> *@
         </form>
     </form>

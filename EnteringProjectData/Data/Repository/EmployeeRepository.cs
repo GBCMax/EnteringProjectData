@@ -25,12 +25,14 @@ namespace EnteringProjectData.Data.Repository
             var p = _dbContext.Project.Where(x => x.ProjectId == project.ProjectId).Single();
             if (emp != null && p != null)
             {
-                if (!p.Employees.Contains(emp))
+                var employeeProject = new EmployeeProject
                 {
-                    p.Employees.Add(emp);
-                    //_dbContext.TaskProject.Update(task);
-                    await _dbContext.SaveChangesAsync();
-                }
+                    EmployeeID = emp.EmployeeID,
+                    ProjectId = p.ProjectId
+                };
+
+                _dbContext.EmployeeProjects.Add(employeeProject);
+                await _dbContext.SaveChangesAsync();
             }
         }
     }

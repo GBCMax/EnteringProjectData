@@ -34,9 +34,13 @@
         </div>
         <form>
             <label>Работает над:</label>
-            @if (Model.Project != null)
+            @if (Model.EmployeeProjects != null)
             {
-                <label asp-for="Project">@Model.Project.ProjectName</label>
+                @foreach(var v in Model.EmployeeProjects)
+                {
+                    <label asp-for="EmployeeProjects">@v.Project.ProjectName</label>
+                }
+                @* <label asp-for="EmployeeProjects">@Model.EmployeeProjects.</label> *@
             }
             else
             {
