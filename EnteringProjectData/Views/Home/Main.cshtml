@@ -2,8 +2,8 @@
     ViewBag.Title = "Main";
     //Layout = "~/Views/Shared/Layout.cshtml";
 }
-@using EnteringProjectData.Data.Repository
-@model ProjectRepository
+@using EnteringProjectData.Data.ViewModels
+@model IndexViewModel
 <form>
     <label>Выберите проект:</label>
     <select name="projectID">
@@ -18,7 +18,7 @@
 <h3>Projects Data:</h3>
 <table class="table">
     <tr><td>ProjectName</td><td>Customer</td><td>Executor</td><td>StartDate</td><td>EndDate</td><td>Priority</td><td>Employees</td></tr>
-@foreach (var p in Model.Projects)
+    @foreach (var p in Model.Projects)
 {
     <tr>
         <td>@p.ProjectName</td>
@@ -28,9 +28,14 @@
         <td>@p.EndDate.ToShortDateString()</td>
         <td>@p.Priority</td>
         <td>
-            @if(p.Employees.Count > 0)
-            @foreach (var employee in p.Employees)
-            {@employee.FirstName @employee.SecondName}
+            @{
+                var v = Model.EmployeeProject.Where(x => x.ProjectId == p.ProjectId); 
+                @if(v != null)
+                @foreach (var employee in v)
+                {
+                    @employee.Employee.FirstName @employee.Employee.SecondName
+                }
+            }
         </td>
     </tr>
 }

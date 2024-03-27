@@ -16,14 +16,10 @@ namespace EnteringProjectData.Data.Models
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime EndDate { get; set; }
         public int Priority { get; set; }
-        public virtual List<Employee> Employees { get; set; }
-        public void AddEmpInProject(Employee employee)
-        {
-            Employees.Add(employee);
-        }
+        public virtual List<EmployeeProject> EmployeeProjects { get; set; }
         public Project()
         {
-            Employees = new List<Employee>();
+            EmployeeProjects = new List<EmployeeProject>();
         }
 
     }

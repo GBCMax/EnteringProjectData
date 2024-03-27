@@ -23,9 +23,12 @@
             <td>@emp.Patronymic</td>
             <td>@emp.Email</td>
             <td>
-                @if (emp.Project != null)
+                @if (emp.EmployeeProjects != null)
                 {
-                    @emp.Project.ProjectName
+                    @foreach(var v in emp.EmployeeProjects)
+                    {
+                        @v.Project.ProjectName
+                    }
                 }
             </td>
         </tr>

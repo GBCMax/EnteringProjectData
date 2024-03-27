@@ -42,18 +42,28 @@ namespace EnteringProjectData.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProjectID")
-                        .HasColumnType("int");
-
                     b.Property<string>("SecondName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("EmployeeID");
 
-                    b.HasIndex("ProjectID");
-
                     b.ToTable("Employee");
+                });
+
+            modelBuilder.Entity("EnteringProjectData.Data.Models.EmployeeProject", b =>
+                {
+                    b.Property<int>("EmployeeID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.HasKey("EmployeeID", "ProjectId");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("EmployeeProjects");
                 });
 
             modelBuilder.Entity("EnteringProjectData.Data.Models.Project", b =>
@@ -90,18 +100,33 @@ namespace EnteringProjectData.Migrations
                     b.ToTable("Project");
                 });
 
-            modelBuilder.Entity("EnteringProjectData.Data.Models.Employee", b =>
+            modelBuilder.Entity("EnteringProjectData.Data.Models.EmployeeProject", b =>
                 {
+                    b.HasOne("EnteringProjectData.Data.Models.Employee", "Employee")
+                        .WithMany("EmployeeProjects")
+                        .HasForeignKey("EmployeeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("EnteringProjectData.Data.Models.Project", "Project")
-                        .WithMany("Employees")
-                        .HasForeignKey("ProjectID");
+                        .WithMany("EmployeeProjects")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
 
                     b.Navigation("Project");
                 });
 
+            modelBuilder.Entity("EnteringProjectData.Data.Models.Employee", b =>
+                {
+                    b.Navigation("EmployeeProjects");
+                });
+
             modelBuilder.Entity("EnteringProjectData.Data.Models.Project", b =>
                 {
-                    b.Navigation("Employees");
+                    b.Navigation("EmployeeProjects");
                 });
 #pragma warning restore 612, 618
         }

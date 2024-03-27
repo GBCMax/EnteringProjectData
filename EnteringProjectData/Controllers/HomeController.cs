@@ -37,7 +37,7 @@ namespace EnteringProjectData.Controllers
                 }
             }
 
-            return View(_projectRepository);
+            return View(_indexViewModel);
         }
 
         public IActionResult AddEmployeeInProject()
@@ -52,7 +52,8 @@ namespace EnteringProjectData.Controllers
             Employee? employee = _dbContext.Employee.FirstOrDefault(emp => emp.EmployeeID == employeeID);
             if (project != null && employee != null)
             {
-                if (!project.Employees.Contains(employee))
+                EmployeeProject? employeeProject = _dbContext.EmployeeProjects.FirstOrDefault(x => x.ProjectId == project.ProjectId && x.EmployeeID == employee.EmployeeID);
+                if (employeeProject == null)
                 {
                     await Task.Run(() => _projectRepository.AddEmployeeInProject(project, employee));
                     await _dbContext.SaveChangesAsync();

@@ -18,15 +18,11 @@ namespace EnteringProjectData.Data.Models
 
         [Required]
         public string Email { get; set; }
-        public int? ProjectID { get; set; }
-        public virtual Project? Project { get; set; }
-        public void SetProject(Project project)
-        {
-            ProjectID = project.ProjectId;
-            Project = project;
-        }
+
+        public virtual List<EmployeeProject> EmployeeProjects { get; set; }
         public Employee() 
-        { 
+        {
+            EmployeeProjects = new List<EmployeeProject>();
         }
     }
 }
