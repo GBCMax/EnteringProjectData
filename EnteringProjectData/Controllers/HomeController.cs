@@ -15,6 +15,7 @@ namespace EnteringProjectData.Controllers
 	{
         private ProjectRepository _projectRepository;
         private EmployeeRepository _employeeRepository;
+        private IndexViewModel _indexViewModel;
         private DBContext _dbContext;
 
 		public HomeController(DBContext dBContext)
@@ -22,6 +23,7 @@ namespace EnteringProjectData.Controllers
             _dbContext = dBContext;
             _projectRepository = new ProjectRepository(dBContext);
             _employeeRepository = new EmployeeRepository(dBContext);
+            _indexViewModel = new IndexViewModel(dBContext);
         }
 
         public IActionResult Main(int? projectID)
@@ -38,15 +40,33 @@ namespace EnteringProjectData.Controllers
             return View(_projectRepository);
         }
 
-        //public IActionResult AddEmployeeInProject(int projectID)
-        //{
-        //    Project? project = _dbContext.Project.FirstOrDefault(p => p.ProjectId == projectID);
-        //    if (project != null)
-        //    {
-        //        return PartialView(_employeeRepository);
-        //    }
-        //    return BadRequest();
-        //}
+        public IActionResult AddEmployeeInProject()
+        {
+            return View(_indexViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddEmployeeInProject(int? projectID, int? employeeID)
+        {
+            Project? project = _dbContext.Project.FirstOrDefault(p => p.ProjectId == projectID);
+            Employee? employee = _dbContext.Employee.FirstOrDefault(emp => emp.EmployeeID == employeeID);
+            if (project != null && employee != null)
+            {
+                if (!project.Employees.Contains(employee))
+                {
+                    await Task.Run(() => _projectRepository.AddEmployeeInProject(project, employee));
+                    await _dbContext.SaveChangesAsync();
+                    //project.Employees.Add(employee);
+                    //employee.Projects.Add(project);
+                    //_dbContext.Update(project);
+                    //_dbContext.Update(employee);
+                    //_dbContext.SaveChanges();
+                    return RedirectToAction("Main", _projectRepository);
+                }
+                return BadRequest();
+            }
+            return View(_indexViewModel);
+        }
 
         //[HttpPost]
         //public IActionResult AddEmployeeInProject(EmployeeRepository _employeeRepository)
@@ -61,7 +81,7 @@ namespace EnteringProjectData.Controllers
 
         public IActionResult ChangeEmployee(Employee employee)
         {
-            return View(employee);
+            return View(_indexViewModel);
         }
 
         public IActionResult Employees(int? employeeID)
@@ -82,11 +102,11 @@ namespace EnteringProjectData.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateProject([FromForm] Project project)
+        public async Task<IActionResult> CreateProject([FromForm] Project project)
         {
             if (ModelState.IsValid)
             {
-                _projectRepository.AddProject(project);
+                await _projectRepository.AddProject(project);
                 return RedirectToAction("Main");
             }
             return View(project);
@@ -98,11 +118,11 @@ namespace EnteringProjectData.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateEmployee([FromForm] Employee employee)
+        public async Task<IActionResult> CreateEmployee([FromForm] Employee employee)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                _employeeRepository.AddEmployee(employee);
+                await _employeeRepository.AddEmployee(employee);
                 return RedirectToAction("Main");
             }
             return View(employee);

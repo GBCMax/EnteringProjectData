@@ -33,20 +33,17 @@
             </div>
         </div>
         <form>
-            <label>Проекты:</label>
-            <select name="projectID">
-                @if (Model.Projects.Count > 0)
-                    @foreach (var comp in Model.Projects)
-                    {
-                        <option value="@comp.ProjectId">@comp.ProjectName</option>
-                    }
-                else
-                {
-                    <option>Не состоит в проектах</option>
-                }
-            </select>
+            <label>Работает над:</label>
+            @if (Model.Project != null)
+            {
+                <label asp-for="Project">@Model.Project.ProjectName</label>
+            }
+            else
+            {
+                <label>Не состоит в проекте</label>
+            }
             @* <input class="btn btn-danger" type="submit" value="Delete" /> *@
-            @* <input asp-for="@Model.Employees" class="btn btn-danger" type="submit" value="Add" asp-action="AddEmployeeInProject" asp-route-id="@Model.ProjectId"/> *@
+            @* <input asp-for="@Model.Projects" class="btn btn-danger" type="submit" value="Add" asp-action="PutEmployeeInProject" asp-route-id="@Model.EmployeeID"/> *@
         </form>
     </form>
 </div>

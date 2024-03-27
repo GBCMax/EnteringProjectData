@@ -12,22 +12,26 @@ namespace EnteringProjectData.Data.Repository
         }
         public IEnumerable<Project> Projects => _dbContext.Project;
         public Project GetProject(int projectID) => _dbContext.Project.FirstOrDefault(x => x.ProjectId == projectID);
-        public void AddProject(Project project)
+        public async Task AddProject(Project project)
         {
-            _dbContext.Project.Add(project);
-            _dbContext.SaveChangesAsync();
+            if(!_dbContext.Project.Contains(project))
+            {
+                _dbContext.Project.Add(project);
+                await _dbContext.SaveChangesAsync();
+            }
         }
-        public string AddEmployeeInProject(Project project, Employee employee)
+        public async Task AddEmployeeInProject(Project project, Employee employee)
         {
             var p = _dbContext.Project.Where(x => x.ProjectId == project.ProjectId).Single();
+            var emp = _dbContext.Employee.Where(x => x.EmployeeID == employee.EmployeeID).Single();
             if (p != null)
             {
-                p.Employees.Add(employee);
-                _dbContext.Project.Update(p);
-                _dbContext.SaveChangesAsync();
-                return "Добавлен";
+                p.AddEmpInProject(employee);
+                emp.SetProject(project);
+                //p.Employees.Add(employee);
+                //_dbContext.Employee.Update(employee);
+                await _dbContext.SaveChangesAsync();
             }
-            return "Ошибка! Проект не найден!";
         }
     }
 }

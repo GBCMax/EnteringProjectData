@@ -12,6 +12,7 @@ builder.Services.AddTransient<ITimeService, SimpleTimeService>();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<DBContext>(options =>
     options.UseSqlServer(connectionString));
+//builder.Services.AddTransient<DBContext>();
 
 var app = builder.Build();
 

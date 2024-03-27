@@ -1,5 +1,6 @@
 ﻿using EnteringProjectData.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 
 namespace EnteringProjectData.Data
 {

@@ -14,7 +14,7 @@
     <input class="btn btn-danger" type="submit" value="Change" />
 </form>
 <table class="table">
-    <tr><td>FirstName</td><td>SecondName</td><td>Patronymic</td><td>Email</td><td>Projects</td></tr>
+    <tr><td>FirstName</td><td>SecondName</td><td>Patronymic</td><td>Email</td><td>Project</td></tr>
     @foreach (var emp in Model.Employees)
     {
         <tr>
@@ -23,11 +23,10 @@
             <td>@emp.Patronymic</td>
             <td>@emp.Email</td>
             <td>
-                @if (emp.Projects.Count > 0)
-                    @foreach (var p in emp.Projects)
-                    {
-                        @p.ProjectName
-                    }
+                @if (emp.Project != null)
+                {
+                    @emp.Project.ProjectName
+                }
             </td>
         </tr>
     }

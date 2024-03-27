@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EnteringProjectData.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20240323153923_initial")]
-    partial class initial
+    [Migration("20240327132703_myMigration")]
+    partial class myMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,21 +24,6 @@ namespace EnteringProjectData.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("EmployeeProject", b =>
-                {
-                    b.Property<int>("EmployeesEmployeeID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProjectsProjectId")
-                        .HasColumnType("int");
-
-                    b.HasKey("EmployeesEmployeeID", "ProjectsProjectId");
-
-                    b.HasIndex("ProjectsProjectId");
-
-                    b.ToTable("EmployeeProject");
-                });
 
             modelBuilder.Entity("EnteringProjectData.Data.Models.Employee", b =>
                 {
@@ -60,11 +45,16 @@ namespace EnteringProjectData.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ProjectID")
+                        .HasColumnType("int");
+
                     b.Property<string>("SecondName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("EmployeeID");
+
+                    b.HasIndex("ProjectID");
 
                     b.ToTable("Employee");
                 });
@@ -103,19 +93,18 @@ namespace EnteringProjectData.Migrations
                     b.ToTable("Project");
                 });
 
-            modelBuilder.Entity("EmployeeProject", b =>
+            modelBuilder.Entity("EnteringProjectData.Data.Models.Employee", b =>
                 {
-                    b.HasOne("EnteringProjectData.Data.Models.Employee", null)
-                        .WithMany()
-                        .HasForeignKey("EmployeesEmployeeID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("EnteringProjectData.Data.Models.Project", "Project")
+                        .WithMany("Employees")
+                        .HasForeignKey("ProjectID");
 
-                    b.HasOne("EnteringProjectData.Data.Models.Project", null)
-                        .WithMany()
-                        .HasForeignKey("ProjectsProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Project");
+                });
+
+            modelBuilder.Entity("EnteringProjectData.Data.Models.Project", b =>
+                {
+                    b.Navigation("Employees");
                 });
 #pragma warning restore 612, 618
         }

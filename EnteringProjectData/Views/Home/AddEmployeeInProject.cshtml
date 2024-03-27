@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "AddEmployeeInProject";
+}
+@model EnteringProjectData.Data.ViewModels.IndexViewModel
+<form method="post">
+    <label>Выберите проект:</label>
+    <select name="projectID">
+        @foreach (var comp in Model.Projects)
+        {
+            <option value="@comp.ProjectId">@comp.ProjectName</option>
+        }
+    </select>
+    <label>Выберите сотрудника:</label>
+    <select name="employeeID">
+        @foreach (var comp in Model.Employees)
+        {
+            <option value="@comp.EmployeeID">@comp.Email</option>
+        }
+    </select>
+    <input class="btn btn-danger" type="submit" value="Add"/>
+</form>
