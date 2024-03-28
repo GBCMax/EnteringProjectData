@@ -5,7 +5,7 @@
 @using EnteringProjectData.Data.ViewModels
 @model IndexViewModel
 
-<div class="container mt-4">
+<form asp-action="Main" class="container mt-4">
     <form>
         <div class="form-group">
             <label for="projectSelect">Select project:</label>
@@ -60,7 +60,7 @@
             }
         </tbody>
     </table>
-</div>
+</form>
 
 @section Footer {
     <footer class="footer mt-auto py-3">

@@ -40,40 +40,6 @@ namespace EnteringProjectData.Controllers
             return View(_indexViewModel);
         }
 
-        public IActionResult AddEmployeeInProject()
-        {
-            return View(_indexViewModel);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AddEmployeeInProject(int? projectID, int? employeeID)
-        {
-            Project? project = _dbContext.Project.FirstOrDefault(p => p.ProjectId == projectID);
-            Employee? employee = _dbContext.Employee.FirstOrDefault(emp => emp.EmployeeID == employeeID);
-            if (project != null && employee != null)
-            {
-                EmployeeProject? employeeProject = _dbContext.EmployeeProjects.FirstOrDefault(x => x.ProjectId == project.ProjectId && x.EmployeeID == employee.EmployeeID);
-                if (employeeProject == null)
-                {
-                    await Task.Run(() => _projectRepository.AddEmployeeInProject(project, employee));
-                    await _dbContext.SaveChangesAsync();
-                    return RedirectToAction("Main", _projectRepository);
-                }
-                return BadRequest();
-            }
-            return View(_indexViewModel);
-        }
-
-        public IActionResult ChangeProject(Project project)
-        {
-            return View(project);
-        }
-
-        public IActionResult ChangeEmployee(Employee employee)
-        {
-            return View(employee);
-        }
-
         public IActionResult Employees(int? employeeID)
         {
             if (employeeID != null)
@@ -96,8 +62,17 @@ namespace EnteringProjectData.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _projectRepository.AddProject(project);
-                return RedirectToAction("Main");
+                if (project.StartDate.Date >= project.EndDate)
+                {
+                    ViewBag.Message = "Start date must be greater than end date!";
+                    return View(project);
+                }
+                else
+                {
+                    await _projectRepository.AddProject(project);
+                    ViewBag.Message = "Done";
+                    return RedirectToAction("Main");
+                }
             }
             return View(project);
         }
@@ -113,14 +88,44 @@ namespace EnteringProjectData.Controllers
             if (ModelState.IsValid)
             {
                 await _employeeRepository.AddEmployee(employee);
-                return RedirectToAction("Main");
+                return RedirectToAction("Employees");
             }
             return View(employee);
         }
+        public IActionResult ChangeProject(Project project)
+        {
+            return View(project);
+        }
 
-        public IActionResult Privacy()
-		{
-			return View();
-		}
-	}
+        public IActionResult ChangeEmployee(Employee employee)
+        {
+            return View(employee);
+        }
+        public IActionResult AddEmployeeInProject()
+        {
+            return View(_indexViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddEmployeeInProject(int? projectID, int? employeeID)
+        {
+            Project? project = _dbContext.Project.FirstOrDefault(p => p.ProjectId == projectID);
+            Employee? employee = _dbContext.Employee.FirstOrDefault(emp => emp.EmployeeID == employeeID);
+            if (project != null && employee != null)
+            {
+                EmployeeProject? employeeProject = _dbContext.EmployeeProjects.FirstOrDefault(x => x.ProjectId == project.ProjectId && x.EmployeeID == employee.EmployeeID);
+                if (employeeProject == null)
+                {
+                    await Task.Run(() => _projectRepository.AddEmployeeInProject(project, employee));
+                    await _dbContext.SaveChangesAsync();
+                    ViewBag.Message = "Done";
+                    return RedirectToAction("Main", _projectRepository);
+                }
+                ViewBag.Message = "This employee already in project!";
+                return View(_indexViewModel);
+            }
+            ViewBag.Message = "Project or employee is empty!";
+            return View(_indexViewModel);
+        }
+    }
 }

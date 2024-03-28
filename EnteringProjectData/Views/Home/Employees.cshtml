@@ -5,7 +5,7 @@
 @using EnteringProjectData.Data.Repository
 @model EmployeeRepository
 
-<div class="container mt-4">
+<form asp-action="Employees" class="container mt-4">
     <form>
         <div class="form-group">
             <label>Select employee:</label>
@@ -52,7 +52,7 @@
             }
         </tbody>
     </table>
-</div>
+</form>
 
 @section Footer {
     <footer class="footer mt-auto py-3">

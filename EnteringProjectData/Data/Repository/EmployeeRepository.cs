@@ -19,21 +19,5 @@ namespace EnteringProjectData.Data.Repository
                 await _dbContext.SaveChangesAsync();
             }
         }
-        public async Task SetProject(Project project, Employee employee)
-        {
-            var emp = _dbContext.Employee.Where(x => x.EmployeeID == employee.EmployeeID).Single();
-            var p = _dbContext.Project.Where(x => x.ProjectId == project.ProjectId).Single();
-            if (emp != null && p != null)
-            {
-                var employeeProject = new EmployeeProject
-                {
-                    EmployeeID = emp.EmployeeID,
-                    ProjectId = p.ProjectId
-                };
-
-                _dbContext.EmployeeProjects.Add(employeeProject);
-                await _dbContext.SaveChangesAsync();
-            }
-        }
     }
 }
