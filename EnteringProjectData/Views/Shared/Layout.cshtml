@@ -1,37 +1,180 @@
 ﻿<!DOCTYPE html>
-<style>
-    #footer {
-        position: fixed;
-        left: 0px;
-        bottom: 0px;
-        height: 30px;
-        width: 100%;
-    }
-
-    td {
-        padding: 5px;
-    }
-
-    tr:nth-child(even) {
-        background: #CCC
-    }
-
-    tr:nth-child(odd) {
-        background: #FFF
-    }
-</style>
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Entering project data | @ViewBag.Title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333; /* Цвет текста */
+            background-color: #f8f9fa; /* Цвет фона */
+            margin-top: 50px; /* Высота верхнего блока */
+            margin-bottom: 50px; /* Высота нижнего блока */
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: bold;
+            color: #555; /* Цвет заголовков */
+        }
+
+        p {
+            margin-bottom: 15px; /* Отступ снизу для абзацев */
+            color: #555; /* Цвет текста */
+        }
+
+        .navbar {
+            background-color: #6c757d !important; /* Цвет фона навигационного меню */
+            position: fixed; /* Фиксированное позиционирование */
+            width: 100%; /* Ширина на всю ширину экрана */
+            top: 0; /* Верхний край экрана */
+            z-index: 1000; /* Перекрывает остальные элементы */
+        }
+
+        .navbar-brand, .navbar-nav .nav-link {
+            color: #ffffff !important; /* Цвет текста в навигационном меню */
+        }
+
+        .btn-primary {
+            background-color: #007bff !important; /* Цвет фона кнопки */
+            border-color: #007bff !important; /* Цвет границы кнопки */
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3 !important; /* Цвет фона кнопки при наведении */
+                border-color: #0056b3 !important; /* Цвет границы кнопки при наведении */
+            }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto; /* Выравнивание по центру */
+            padding-top: 20px; /* Дополнительный отступ сверху */
+            padding-bottom: 20px; /* Дополнительный отступ снизу */
+            overflow-y: auto; /* Вертикальная прокрутка */
+        }
+
+        form {
+            background-color: #ffffff; /* Цвет фона формы */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            color: #343a40; /* Цвет текста меток */
+            font-weight: bold;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff; /* Цвет фона кнопки отправки формы */
+            border: none;
+            color: #ffffff; /* Цвет текста кнопки отправки формы */
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+            input[type="submit"]:hover {
+                background-color: #0056b3; /* Цвет фона кнопки отправки формы при наведении */
+            }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #dee2e6;
+            text-align: center;
+            vertical-align: middle;
+            color: #555;
+        }
+
+        th {
+            background-color: #6c757d;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+
+        tr:hover {
+            background-color: #e2e6ea;
+            text-align: center;
+        }
+
+        #footer {
+            background-color: #6c757d;
+            color: #ffffff;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
+            position: fixed; /* Фиксированное позиционирование */
+            bottom: 0; /* Нижний край экрана */
+            z-index: 1000; /* Перекрывает остальные элементы */
+        }
+
+            #footer p {
+                margin: 0;
+            }
+    </style>
 </head>
 <body>
-    <h2>@ViewBag.Title</h2>
-    <div><a href="/Home/Main">Main</a> | <a href="/Home/Employees">Employees</a> | <a href="/Home/CreateProject">CreateProject</a> | <a href="/Home/CreateEmployee">CreateEmployee</a> | <a href="/Home/AddEmployeeInProject">Add employee in project</a></div>
-    <br />
-    <div>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Entering Project Data</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item @(ViewBag.Title == "Main" ? "active" : "")">
+                        <a class="nav-link" href="/Home/Main">Main</a>
+                    </li>
+                    <li class="nav-item @(ViewBag.Title == "Employees" ? "active" : "")">
+                        <a class="nav-link" href="/Home/Employees">Employees</a>
+                    </li>
+                    <li class="nav-item @(ViewBag.Title == "Create project" ? "active" : "")">
+                        <a class="nav-link" href="/Home/CreateProject">Create project</a>
+                    </li>
+                    <li class="nav-item @(ViewBag.Title == "Create employee" ? "active" : "")">
+                        <a class="nav-link" href="/Home/CreateEmployee">Create employee</a>
+                    </li>
+                    <li class="nav-item @(ViewBag.Title == "Add employee in project" ? "active" : "")">
+                        <a class="nav-link" href="/Home/AddEmployeeInProject">Add employee in project</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
         @RenderBody()
     </div>
+
     <footer id="footer">@RenderSection("Footer", false)</footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+
+

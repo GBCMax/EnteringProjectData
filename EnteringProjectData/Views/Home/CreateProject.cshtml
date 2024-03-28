@@ -1,51 +1,69 @@
 ﻿@{
     ViewBag.Title = "Create project";
 }
+
 @model EnteringProjectData.Data.Models.Project
-<div class="row">
-    <form asp-action="CreateProject" method="post" class="form-horizontal">
-        <div class="form-group">
-            <label asp-for="ProjectName">ProjectName</label>
-            <div class="col-md-5">
-                <input asp-for="ProjectName" class="form-control-color"/>
+
+<div class="container mt-4">
+    <form asp-action="CreateProject" method="post">
+        <div class="row mb-3">
+            <label for="ProjectName" class="col-md-3 col-form-label text-end">Project name:</label>
+            <div class="col-md-9">
+                <input asp-for="ProjectName" class="form-control" id="ProjectName" />
                 <span asp-validation-for="ProjectName" class="text-danger"></span>
             </div>
         </div>
-        <div class="form-group">
-            <label asp-for="CustomerCompanyName">CustomerCompanyName</label>
-            <div class="col-md-5">
-                <input asp-for="CustomerCompanyName" class="form-control-color" />
+        <div class="row mb-3">
+            <label for="CustomerCompanyName" class="col-md-3 col-form-label text-end">Customer company name:</label>
+            <div class="col-md-9">
+                <input asp-for="CustomerCompanyName" class="form-control" id="CustomerCompanyName" />
                 <span asp-validation-for="CustomerCompanyName" class="text-danger"></span>
             </div>
         </div>
-        <div class="form-group">
-            <label asp-for="ExecutingCompanyName">ExecutingCompanyName</label>
-            <div class="col-md-5">
-                <input asp-for="ExecutingCompanyName" class="form-control-color" />
+        <div class="row mb-3">
+            <label for="ExecutingCompanyName" class="col-md-3 col-form-label text-end">Executing company name:</label>
+            <div class="col-md-9">
+                <input asp-for="ExecutingCompanyName" class="form-control" id="ExecutingCompanyName" />
                 <span asp-validation-for="ExecutingCompanyName" class="text-danger"></span>
             </div>
         </div>
-        <div class="form-group">
-            <label asp-for="StartDate">StartDate</label>
-            <div class="col-md-5">
-                <input asp-for="StartDate" class="form-control-color" />
+        <div class="row mb-3">
+            <label for="StartDate" class="col-md-3 col-form-label text-end">Start date:</label>
+            <div class="col-md-9">
+                <input asp-for="StartDate" class="form-control" id="StartDate" />
                 <span asp-validation-for="StartDate" class="text-danger"></span>
             </div>
         </div>
-        <div class="form-group">
-            <label asp-for="EndDate">EndDate</label>
-            <div class="col-md-5">
-                <input asp-for="EndDate" class="form-control-color" />
+        <div class="row mb-3">
+            <label for="EndDate" class="col-md-3 col-form-label text-end">End date:</label>
+            <div class="col-md-9">
+                <input asp-for="EndDate" class="form-control" id="EndDate" />
                 <span asp-validation-for="EndDate" class="text-danger"></span>
             </div>
         </div>
-        <div class="form-group">
-            <label asp-for="Priority">Priority</label>
-            <div class="col-md-5">
-                <input asp-for="Priority" class="form-control-color" />
+        <div class="row mb-3">
+            <label for="Priority" class="col-md-3 col-form-label text-end">Priority:</label>
+            <div class="col-md-9">
+                <input asp-for="Priority" class="form-control" id="Priority" />
                 <span asp-validation-for="Priority" class="text-danger"></span>
             </div>
         </div>
-        <input class="btn btn-danger" type="submit" value="Create project"/>
+        <div class="row">
+            <div class="col-md-9 offset-md-3">
+                <button type="submit" class="btn btn-danger">Create project</button>
+            </div>
+        </div>
     </form>
 </div>
+
+@section Footer {
+    <footer class="footer mt-auto py-3">
+        <div>
+            <span class="text-muted">Copyright© Eliseev Maksim, @DateTime.Now.Year. All rights reserved</span>
+        </div>
+    </footer>
+}
+
+
+
+

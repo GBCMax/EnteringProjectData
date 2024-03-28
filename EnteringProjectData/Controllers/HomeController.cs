@@ -57,23 +57,12 @@ namespace EnteringProjectData.Controllers
                 {
                     await Task.Run(() => _projectRepository.AddEmployeeInProject(project, employee));
                     await _dbContext.SaveChangesAsync();
-                    //project.Employees.Add(employee);
-                    //employee.Projects.Add(project);
-                    //_dbContext.Update(project);
-                    //_dbContext.Update(employee);
-                    //_dbContext.SaveChanges();
                     return RedirectToAction("Main", _projectRepository);
                 }
                 return BadRequest();
             }
             return View(_indexViewModel);
         }
-
-        //[HttpPost]
-        //public IActionResult AddEmployeeInProject(EmployeeRepository _employeeRepository)
-        //{
-
-        //}
 
         public IActionResult ChangeProject(Project project)
         {
@@ -82,7 +71,7 @@ namespace EnteringProjectData.Controllers
 
         public IActionResult ChangeEmployee(Employee employee)
         {
-            return View(_indexViewModel);
+            return View(employee);
         }
 
         public IActionResult Employees(int? employeeID)

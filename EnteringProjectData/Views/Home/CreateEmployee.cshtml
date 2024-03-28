@@ -1,45 +1,52 @@
 ﻿@{
-    ViewBag.Title = "Create Employee";
+    ViewBag.Title = "Create employee";
 }
+
 @model EnteringProjectData.Data.Models.Employee
-<div class="row">
-    <form asp-action="CreateEmployee" method="post" class="form-horizontal">
-        <div class="form-group">
-            <label asp-for="FirstName">First name:</label>
-            <div class="col-md-5">
-                <input asp-for="FirstName" class="form-control-color"/>
+
+<div class="container mt-4">
+    <form asp-action="CreateEmployee" method="post">
+        <div class="row mb-3">
+            <label for="FirstName" class="col-md-3 col-form-label text-end">First name:</label>
+            <div class="col-md-9">
+                <input asp-for="FirstName" class="form-control" id="FirstName" />
                 <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
         </div>
-        <div class="form-group">
-            <label asp-for="SecondName">Second name:</label>
-            <div class="col-md-5">
-                <input asp-for="SecondName" class="form-control-color" />
+        <div class="row mb-3">
+            <label for="SecondName" class="col-md-3 col-form-label text-end">Second name:</label>
+            <div class="col-md-9">
+                <input asp-for="SecondName" class="form-control" id="SecondName" />
                 <span asp-validation-for="SecondName" class="text-danger"></span>
             </div>
         </div>
-        <div class="form-group">
-            <label asp-for="Patronymic">Patronymic:</label>
-            <div class="col-md-5">
-                <input asp-for="Patronymic" class="form-control-color" />
+        <div class="row mb-3">
+            <label for="Patronymic" class="col-md-3 col-form-label text-end">Patronymic:</label>
+            <div class="col-md-9">
+                <input asp-for="Patronymic" class="form-control" id="Patronymic" />
                 <span asp-validation-for="Patronymic" class="text-danger"></span>
             </div>
         </div>
-        <div class="form-group">
-            <label asp-for="Email">Email:</label>
-            <div class="col-md-5">
-                <input asp-for="Email" class="form-control-color" />
+        <div class="row mb-3">
+            <label for="Email" class="col-md-3 col-form-label text-end">Email:</label>
+            <div class="col-md-9">
+                <input asp-for="Email" class="form-control" id="Email" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
         </div>
-        <input class="btn btn-danger" type="submit" value="Create employee"/>
+        <div class="row">
+            <div class="col-md-9 offset-md-3">
+                <button type="submit" class="btn btn-danger">Create employee</button>
+            </div>
+        </div>
     </form>
 </div>
-@* <h3>Eployees:</h3>
-<table class="table">
-    <tr><td>Фамилия</td><td>Имя</td><td>Отчество</td></tr>
-    @foreach (var emp in Model.Employees)
-    {
-        <tr><td>@emp.SecondName</td><td>@emp.FirstName</td><td>@emp.Patronymic</td></tr>
-    }
-</table> *@
+
+@section Footer {
+    <footer class="footer mt-auto py-3">
+        <div>
+            <span class="text-muted">Copyright© Eliseev Maksim, @DateTime.Now.Year. All rights reserved</span>
+        </div>
+    </footer>
+}
+

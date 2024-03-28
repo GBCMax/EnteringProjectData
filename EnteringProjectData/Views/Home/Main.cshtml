@@ -1,45 +1,71 @@
 ﻿@{
     ViewBag.Title = "Main";
-    //Layout = "~/Views/Shared/Layout.cshtml";
 }
+
 @using EnteringProjectData.Data.ViewModels
 @model IndexViewModel
-<form>
-    <label>Выберите проект:</label>
-    <select name="projectID">
-        @foreach (var comp in Model.Projects)
-        {
-            <option value="@comp.ProjectId">@comp.ProjectName</option>
-        }
-    </select>
-    <input class="btn btn-danger" type="submit" value="Change"/>
-</form>
-<br/>
-<h3>Projects Data:</h3>
-<table class="table">
-    <tr><td>ProjectName</td><td>Customer</td><td>Executor</td><td>StartDate</td><td>EndDate</td><td>Priority</td><td>Employees</td></tr>
-    @foreach (var p in Model.Projects)
-{
-    <tr>
-        <td>@p.ProjectName</td>
-        <td>@p.CustomerCompanyName</td>
-        <td>@p.ExecutingCompanyName</td>
-        <td>@p.StartDate.ToShortDateString()</td>
-        <td>@p.EndDate.ToShortDateString()</td>
-        <td>@p.Priority</td>
-        <td>
-            @{
-                var v = Model.EmployeeProject.Where(x => x.ProjectId == p.ProjectId); 
-                @if(v != null)
-                @foreach (var employee in v)
+
+<div class="container mt-4">
+    <form>
+        <div class="form-group">
+            <label for="projectSelect">Select project:</label>
+            <select class="form-control" id="projectSelect" name="projectID">
+                @foreach (var comp in Model.Projects)
                 {
-                    @employee.Employee.FirstName @employee.Employee.SecondName
+                    <option value="@comp.ProjectId">@comp.ProjectName</option>
                 }
+            </select>
+        </div>
+        <button type="submit" class="btn btn-danger">Change</button>
+    </form>
+
+    <h3 class="mt-4">Projects Data:</h3>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Project name</th>
+                <th>Customer</th>
+                <th>Executor</th>
+                <th>Start date</th>
+                <th>End date</th>
+                <th>Priority</th>
+                <th>Employees</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model.Projects)
+            {
+                <tr>
+                    <td>@p.ProjectName</td>
+                    <td>@p.CustomerCompanyName</td>
+                    <td>@p.ExecutingCompanyName</td>
+                    <td>@p.StartDate.ToShortDateString()</td>
+                    <td>@p.EndDate.ToShortDateString()</td>
+                    <td>@p.Priority</td>
+                    <td>
+                        @{
+                            var v = Model.EmployeeProject.Where(x => x.ProjectId == p.ProjectId);
+                            @if (v != null)
+                            {
+                                foreach (var employee in v)
+                                {
+                                    <text>@employee.Employee.FirstName @employee.Employee.SecondName</text>
+                                    <br />
+                                }
+                            }
+                        }
+                    </td>
+                </tr>
             }
-        </td>
-    </tr>
-}
-</table>
+        </tbody>
+    </table>
+</div>
+
 @section Footer {
-       Copyright© Eliseev Maksim, @DateTime.Now.Year. All rights reserved
+    <footer class="footer mt-auto py-3">
+        <div>
+            <span class="text-muted">Copyright© Eliseev Maksim, @DateTime.Now.Year. All rights reserved</span>
+        </div>
+    </footer>
 }

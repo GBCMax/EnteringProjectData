@@ -2,62 +2,83 @@
     ViewBag.Title = "Change project";
 }
 @model EnteringProjectData.Data.Models.Project
-<div class="row">
+<div class="container mt-4">
     <form asp-action="ChangeProject" class="form-horizontal" asp-route-id="@Model.ProjectId">
-        <div class="form-group">
-            <label asp-for="ProjectName">ProjectName</label>
+        <div class="form-group row">
+            <label for="ProjectName" class="col-md-2 col-form-label">Project name:</label>
             <div class="col-md-5">
-                <input asp-for="ProjectName" class="form-control-color" />
+                <input asp-for="ProjectName" class="form-control" id="ProjectName" />
                 <span asp-validation-for="ProjectName" class="text-danger"></span>
             </div>
         </div>
-        <div class="form-group">
-            <label asp-for="CustomerCompanyName">CustomerCompanyName</label>
+        <div class="form-group row">
+            <label for="CustomerCompanyName" class="col-md-2 col-form-label">Customer company name:</label>
             <div class="col-md-5">
-                <input asp-for="CustomerCompanyName" class="form-control-color" />
+                <input asp-for="CustomerCompanyName" class="form-control" id="CustomerCompanyName" />
                 <span asp-validation-for="CustomerCompanyName" class="text-danger"></span>
             </div>
         </div>
-        <div class="form-group">
-            <label asp-for="ExecutingCompanyName">ExecutingCompanyName</label>
+        <div class="form-group row">
+            <label for="ExecutingCompanyName" class="col-md-2 col-form-label">Executing company name:</label>
             <div class="col-md-5">
-                <input asp-for="ExecutingCompanyName" class="form-control-color" />
+                <input asp-for="ExecutingCompanyName" class="form-control" id="ExecutingCompanyName" />
                 <span asp-validation-for="ExecutingCompanyName" class="text-danger"></span>
             </div>
         </div>
-        <div class="form-group">
-            <label asp-for="StartDate.Date">StartDate</label>
+        <div class="form-group row">
+            <label for="StartDate" class="col-md-2 col-form-label">Start date:</label>
             <div class="col-md-5">
-                <input asp-for="StartDate.Date" class="form-control-color" />
-                <span asp-validation-for="StartDate.Date" class="text-danger"></span>
+                <input asp-for="StartDate" class="form-control" id="StartDate" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
             </div>
         </div>
-        <div class="form-group">
-            <label asp-for="EndDate.Date">EndDate</label>
+        <div class="form-group row">
+            <label for="EndDate" class="col-md-2 col-form-label">EndDate:</label>
             <div class="col-md-5">
-                <input asp-for="EndDate.Date" class="form-control-color" />
-                <span asp-validation-for="EndDate.Date" class="text-danger"></span>
+                <input asp-for="EndDate" class="form-control" id="End date" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
             </div>
         </div>
-        <div class="form-group">
-            <label asp-for="Priority">Priority</label>
+        <div class="form-group row">
+            <label for="Priority" class="col-md-2 col-form-label">Priority:</label>
             <div class="col-md-5">
-                <input asp-for="Priority" class="form-control-color" />
+                <input asp-for="Priority" class="form-control" id="Priority" />
                 <span asp-validation-for="Priority" class="text-danger"></span>
             </div>
         </div>
-        <form>
-            <label>Сотрудники:</label>
-            @if (Model.EmployeeProjects != null)
-            @foreach (var comp in Model.EmployeeProjects)
-            {
-                <label value="@comp.Employee.EmployeeID">@comp.Employee.Email</label>
-            }
-            else
-            {
-                <label>Нет сотрудников</label>
-            }
-            @* <input class="btn btn-danger" type="submit" value="Delete" /> *@
-        </form>
+        <div class="form-group row">
+            <label class="col-md-2 col-form-label">Employees:</label>
+            <div class="col-md-5">
+                @if (Model.EmployeeProjects != null && Model.EmployeeProjects.Count > 0)
+                {
+                    @foreach (var comp in Model.EmployeeProjects)
+                    {
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" name="employeeIds" value="@comp.Employee.EmployeeID" checked="checked"> @comp.Employee.Email
+                            </label>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <span>Empty</span>
+                }
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-10 offset-md-2">
+                <button type="submit" class="btn btn-danger">Change project</button>
+            </div>
+        </div>
     </form>
 </div>
+
+@section Footer {
+    <footer class="footer mt-auto py-3">
+        <div>
+            <span class="text-muted">Copyright© Eliseev Maksim, @DateTime.Now.Year. All rights reserved</span>
+        </div>
+    </footer>
+}
+

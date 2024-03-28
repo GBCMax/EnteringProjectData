@@ -7,7 +7,6 @@ namespace EnteringProjectData.Data.ViewModels
     {
         private EmployeeRepository employeeRepository;
         private ProjectRepository projectRepository;
-        //private EmployeeProject _employeeProject;
         public List<Project> Projects { get; private set; } = new();
         public List<Employee> Employees { get; private set; } = new();
         public List<EmployeeProject> EmployeeProject { get; private set; }

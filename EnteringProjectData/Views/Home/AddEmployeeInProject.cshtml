@@ -1,21 +1,36 @@
 ﻿@{
-    ViewBag.Title = "AddEmployeeInProject";
+    ViewBag.Title = "Add employee in project";
 }
 @model EnteringProjectData.Data.ViewModels.IndexViewModel
-<form method="post">
-    <label>Выберите проект:</label>
-    <select name="projectID">
-        @foreach (var comp in Model.Projects)
-        {
-            <option value="@comp.ProjectId">@comp.ProjectName</option>
-        }
-    </select>
-    <label>Выберите сотрудника:</label>
-    <select name="employeeID">
-        @foreach (var comp in Model.Employees)
-        {
-            <option value="@comp.EmployeeID">@comp.Email</option>
-        }
-    </select>
-    <input class="btn btn-danger" type="submit" value="Add"/>
-</form>
+<div class="container mt-4">
+    <form method="post">
+        <div class="form-group">
+            <label for="projectID">Select project:</label>
+            <select class="form-control" id="projectID" name="projectID">
+                @foreach (var comp in Model.Projects)
+                {
+                    <option value="@comp.ProjectId">@comp.ProjectName</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="employeeID">Select employee:</label>
+            <select class="form-control" id="employeeID" name="employeeID">
+                @foreach (var comp in Model.Employees)
+                {
+                    <option value="@comp.EmployeeID">@comp.Email</option>
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Add</button>
+    </form>
+</div>
+
+@section Footer {
+    <footer class="footer mt-auto py-3">
+        <div>
+            <span class="text-muted">Copyright© Eliseev Maksim, @DateTime.Now.Year. All rights reserved</span>
+        </div>
+    </footer>
+}
+

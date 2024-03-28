@@ -1,39 +1,63 @@
 ﻿@{
     ViewBag.Title = "Employees";
 }
+
 @using EnteringProjectData.Data.Repository
 @model EmployeeRepository
-<form>
-    <label>Выберите сотрудника:</label>
-    <select name="employeeID">
-        @foreach (var comp in Model.Employees)
-        {
-            <option value="@comp.EmployeeID">@comp.Email</option>
-        }
-    </select>
-    <input class="btn btn-danger" type="submit" value="Change" />
-</form>
-<table class="table">
-    <tr><td>FirstName</td><td>SecondName</td><td>Patronymic</td><td>Email</td><td>Project</td></tr>
-    @foreach (var emp in Model.Employees)
-    {
-        <tr>
-            <td>@emp.FirstName</td>
-            <td>@emp.SecondName</td>
-            <td>@emp.Patronymic</td>
-            <td>@emp.Email</td>
-            <td>
-                @if (emp.EmployeeProjects != null)
+
+<div class="container mt-4">
+    <form>
+        <div class="form-group">
+            <label>Select employee:</label>
+            <select class="form-control" name="employeeID">
+                @foreach (var comp in Model.Employees)
                 {
-                    @foreach(var v in emp.EmployeeProjects)
-                    {
-                        @v.Project.ProjectName
-                    }
+                    <option value="@comp.EmployeeID">@comp.Email</option>
                 }
-            </td>
-        </tr>
-    }
-</table>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-danger">Change</button>
+    </form>
+
+    <table class="table table-striped mt-4">
+        <thead>
+            <tr>
+                <th>First name</th>
+                <th>Second name</th>
+                <th>Patronymic</th>
+                <th>Email</th>
+                <th>Project</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var emp in Model.Employees)
+            {
+                <tr>
+                    <td>@emp.FirstName</td>
+                    <td>@emp.SecondName</td>
+                    <td>@emp.Patronymic</td>
+                    <td>@emp.Email</td>
+                    <td>
+                        @if (emp.EmployeeProjects != null)
+                        {
+                            foreach (var v in emp.EmployeeProjects)
+                            {
+                                @v.Project.ProjectName
+
+                                <br />
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
 @section Footer {
-           Copyright© Eliseev Maksim, @DateTime.Now.Year. All rights reserved
+    <footer class="footer mt-auto py-3">
+        <div>
+            <span class="text-muted">Copyright© Eliseev Maksim, @DateTime.Now.Year. All rights reserved</span>
+        </div>
+    </footer>
 }
