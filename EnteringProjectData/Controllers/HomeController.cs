@@ -92,8 +92,35 @@ namespace EnteringProjectData.Controllers
             }
             return View(employee);
         }
-        public IActionResult ChangeProject(Project project)
+
+        public IActionResult ChangeProject(int projectID)
         {
+            Project? project = _dbContext.Project.FirstOrDefault(x => x.ProjectId == projectID);
+            return View(project);
+        }
+
+        [HttpPost]
+        public IActionResult ChangeProject([FromForm] Project project)
+        {
+            if (ModelState.IsValid)
+            {
+                if (project.StartDate.Date >= project.EndDate)
+                {
+                    ViewBag.Message = "Start date must be greater than end date!";
+                    return View(project);
+                }
+                else
+                {
+                    Project? p = _dbContext.Project.FirstOrDefault(x => x.ProjectId == project.ProjectId);
+                    if(p != null)
+                    {
+                        _dbContext.Project.Update(p);
+                        ViewBag.Message = "Done";
+                        return RedirectToAction("Main");
+                    }
+                    return View(project);
+                }
+            }
             return View(project);
         }
 

@@ -1,4 +1,5 @@
 ﻿using EnteringProjectData.Data.Models;
+using Microsoft.IdentityModel.Tokens;
 
 namespace EnteringProjectData.Data.Repository
 {
@@ -10,10 +11,11 @@ namespace EnteringProjectData.Data.Repository
             _dbContext = dBContext;
         }
         public IEnumerable<Employee> Employees => _dbContext.Employee;
-        public Employee GetEmployee(int employeeID) => _dbContext.Employee.FirstOrDefault(x => x.EmployeeID == employeeID);
+        public Employee? GetEmployee(int employeeID) => _dbContext.Employee.FirstOrDefault(x => x.EmployeeID == employeeID);
         public async Task AddEmployee(Employee employee)
         {
-            if(!_dbContext.Employee.Contains(employee))
+            var p = _dbContext.Employee.Where(x => x.Email == employee.Email);
+            if (p.IsNullOrEmpty())
             {
                 _dbContext.Employee.Add(employee);
                 await _dbContext.SaveChangesAsync();

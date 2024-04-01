@@ -39,9 +39,9 @@
                 {
                     @foreach (var v in Model.EmployeeProjects)
                     {
-                        <div class="form-check">
+                        <div class="col-md-5">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" name="projectIds" value="@v.Project.ProjectId" checked="checked"> @v.Project.ProjectName
+                                @v.Project.ProjectName
                             </label>
                         </div>
                     }

@@ -26,6 +26,81 @@
         <div>@ViewBag.Message</div>
     </form>
 </div>
+<h3 class="mt-4">Projects data:</h3>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Project name</th>
+            <th>Customer</th>
+            <th>Executor</th>
+            <th>Start date</th>
+            <th>End date</th>
+            <th>Priority</th>
+            <th>Employees</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model.Projects)
+        {
+            <tr>
+                <td>@p.ProjectName</td>
+                <td>@p.CustomerCompanyName</td>
+                <td>@p.ExecutingCompanyName</td>
+                <td>@p.StartDate.ToShortDateString()</td>
+                <td>@p.EndDate.ToShortDateString()</td>
+                <td>@p.Priority</td>
+                <td>
+                    @{
+                        var v = Model.EmployeeProject.Where(x => x.ProjectId == p.ProjectId);
+                        @if (v != null)
+                        {
+                            foreach (var employee in v)
+                            {
+                                <text>@employee.Employee.FirstName @employee.Employee.SecondName</text>
+                                <br />
+                            }
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<h3 class="mt-4">Employees:</h3>
+<table class="table table-striped mt-4">
+    <thead>
+        <tr>
+            <th>First name</th>
+            <th>Second name</th>
+            <th>Patronymic</th>
+            <th>Email</th>
+            <th>Project</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var emp in Model.Employees)
+        {
+            <tr>
+                <td>@emp.FirstName</td>
+                <td>@emp.SecondName</td>
+                <td>@emp.Patronymic</td>
+                <td>@emp.Email</td>
+                <td>
+                    @if (emp.EmployeeProjects != null)
+                    {
+                        foreach (var v in emp.EmployeeProjects)
+                        {
+                            @v.Project.ProjectName
+
+                            <br />
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
 @section Footer {
     <footer class="footer mt-auto py-3">

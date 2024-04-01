@@ -3,7 +3,7 @@
 }
 @model EnteringProjectData.Data.Models.Project
 <div class="container mt-4">
-    <form asp-action="ChangeProject" class="form-horizontal" asp-route-id="@Model.ProjectId">
+    <form asp-action="ChangeProject" method="post" class="form-horizontal" asp-route-id="@Model.ProjectId">
         <div class="form-group row">
             <label for="ProjectName" class="col-md-2 col-form-label">Project name:</label>
             <div class="col-md-5">
@@ -28,14 +28,14 @@
         <div class="form-group row">
             <label for="StartDate" class="col-md-2 col-form-label">Start date:</label>
             <div class="col-md-5">
-                <input asp-for="StartDate.Date" class="form-control" id="StartDate" />
+                <input asp-for="StartDate" class="form-control" id="StartDate" />
                 <span asp-validation-for="StartDate" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group row">
             <label for="EndDate" class="col-md-2 col-form-label">EndDate:</label>
             <div class="col-md-5">
-                <input asp-for="EndDate.Date" class="form-control" id="End date" />
+                <input asp-for="EndDate" class="form-control" id="End date" />
                 <span asp-validation-for="EndDate" class="text-danger"></span>
             </div>
         </div>
@@ -53,9 +53,9 @@
                 {
                     @foreach (var comp in Model.EmployeeProjects)
                     {
-                        <div class="form-check">
+                        <div class="col-md-5">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" name="employeeIds" value="@comp.Employee.EmployeeID" checked="checked"> @comp.Employee.Email
+                                @comp.Employee.Email
                             </label>
                         </div>
                     }
@@ -69,6 +69,9 @@
         <div class="form-group row">
             <div class="col-md-10 offset-md-2">
                 <button type="submit" class="btn btn-danger">Change project</button>
+            </div>
+            <div class="col-md-10 offset-md-2">
+                @ViewBag.Message
             </div>
         </div>
     </form>
