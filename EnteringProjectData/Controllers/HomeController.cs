@@ -58,7 +58,7 @@ namespace EnteringProjectData.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateProject([FromForm] Project project)
+        public async Task<IActionResult> CreateProject(Project project)
         {
             if (ModelState.IsValid)
             {
@@ -93,14 +93,19 @@ namespace EnteringProjectData.Controllers
             return View(employee);
         }
 
-        public IActionResult ChangeProject(int projectID)
+        public async Task<IActionResult> ChangeProject(int? projectID)
         {
-            Project? project = _dbContext.Project.FirstOrDefault(x => x.ProjectId == projectID);
-            return View(project);
+            if (projectID != null)
+            {
+                Project? project = await _dbContext.Project.FirstOrDefaultAsync(x => x.ProjectId == projectID);
+                if(project != null)
+                return View(project);
+            }
+            return View();
         }
 
         [HttpPost]
-        public IActionResult ChangeProject([FromForm] Project project)
+        public async Task<IActionResult> ChangeProject(Project project)
         {
             if (ModelState.IsValid)
             {
@@ -111,21 +116,49 @@ namespace EnteringProjectData.Controllers
                 }
                 else
                 {
-                    Project? p = _dbContext.Project.FirstOrDefault(x => x.ProjectId == project.ProjectId);
-                    if(p != null)
+                    Project? p = await _dbContext.Project.FindAsync(project.ProjectId);
+                    if (p != null)
                     {
-                        _dbContext.Project.Update(p);
+                        _dbContext.Entry(p).CurrentValues.SetValues(project);
+                        await _dbContext.SaveChangesAsync();
                         ViewBag.Message = "Done";
                         return RedirectToAction("Main");
                     }
+                    ViewBag.Message = "Not found!";
                     return View(project);
                 }
             }
             return View(project);
         }
 
-        public IActionResult ChangeEmployee(Employee employee)
+        public async Task<IActionResult> ChangeEmployee(int? employeeID)
         {
+            if (employeeID != null)
+            {
+                Employee? employee = await _dbContext.Employee.FirstOrDefaultAsync(x => x.EmployeeID == employeeID);
+                if (employee != null)
+                    return View(employee);
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeEmployee(Employee employee)
+        {
+            if (ModelState.IsValid)
+            {
+                Employee? emp = await _dbContext.Employee.FindAsync(employee.EmployeeID);
+                if (emp != null)
+                {
+                    _dbContext.Entry(emp).CurrentValues.SetValues(employee);
+                    await _dbContext.SaveChangesAsync();
+                    ViewBag.Message = "Done";
+                    return RedirectToAction("Main");
+                }
+                ViewBag.Message = "Not found!";
+                return View(employee);
+                
+            }
             return View(employee);
         }
         public IActionResult AddEmployeeInProject()

@@ -6,7 +6,7 @@ namespace EnteringProjectData.Data.Models
 {
     public class Employee
     {
-        public int EmployeeID { get; set; }
+        [Key] public int EmployeeID { get; set; }
 
         [Required(ErrorMessage = "First name is empty!")]
         public string FirstName { get; set; }

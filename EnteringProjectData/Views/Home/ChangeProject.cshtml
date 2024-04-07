@@ -3,7 +3,7 @@
 }
 @model EnteringProjectData.Data.Models.Project
 <div class="container mt-4">
-    <form asp-action="ChangeProject" method="post" class="form-horizontal" asp-route-id="@Model.ProjectId">
+    <form asp-action="ChangeProject" method="post" class="form-horizontal">
         <div class="form-group row">
             <label for="ProjectName" class="col-md-2 col-form-label">Project name:</label>
             <div class="col-md-5">
@@ -74,6 +74,7 @@
                 @ViewBag.Message
             </div>
         </div>
+        <input type="hidden" asp-for="ProjectId" />
     </form>
 </div>
 

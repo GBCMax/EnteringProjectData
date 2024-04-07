@@ -5,7 +5,7 @@ namespace EnteringProjectData.Data.Models
 {
     public class Project
     {
-        public int ProjectId { get; set; }
+        [Key] public int ProjectId { get; set; }
 
         [Required(ErrorMessage = "Project name is empty!")]
         public string ProjectName { get; set; }
@@ -16,12 +16,10 @@ namespace EnteringProjectData.Data.Models
         [Required(ErrorMessage = "Executing company name is empty!")]
         public string ExecutingCompanyName { get; set; }
 
-        [Required(ErrorMessage = "Start date is empty!")]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = "Start date is empty!"), DataType("date")]
         public DateTime StartDate { get; set; }
 
-        [Required(ErrorMessage = "End date is empty!")]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = "End date is empty!"), DataType("date")]
         public DateTime EndDate { get; set; }
 
         [Required(ErrorMessage = "Priority is empty!")]
